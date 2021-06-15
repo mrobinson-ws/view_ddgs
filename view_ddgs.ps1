@@ -1,4 +1,4 @@
-#Requires -Module ExchangeManagementOnline
+#Requires -Module ExchangeOnlineManagement
 [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing") 
 [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
 [void] [System.Windows.Forms.Application]::EnableVisualStyles()
@@ -16,7 +16,7 @@ catch {
     Connect-ExchangeOnline
 }
 
-while($quitboxOutput -ne "NO")
+while($quitboxOutput -ne "NO"){
     $DDG = Get-DynamicDistributionGroup | Out-GridView -OutputMode Single
     $GroupMembers = Get-Recipient -RecipientPreviewFilter $DDG.RecipientFilter -OrganizationalUnit $DDG.RecipientContainer
     Write-Host "Members Of $($DDG.Name)"
@@ -29,3 +29,4 @@ while($quitboxOutput -ne "NO")
     }
     Write-Host "Outputting to CSV as well, It will be in your Downloads Directory"
     $quitboxOutput = [System.Windows.Forms.MessageBox]::Show("Do you need to check another Dynamic Distribution Group?" , "Group Membership Export Complete" , 4)
+}
